@@ -1,0 +1,35 @@
+@import "devextreme/dist/css/dx.light.css";
+
+.dx-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+body {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+dxi-button {
+  pointer-events: auto !important;
+  opacity: 1 !important;
+}
+
+.print-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    padding: 0;
+    background: white;
+  }
+}

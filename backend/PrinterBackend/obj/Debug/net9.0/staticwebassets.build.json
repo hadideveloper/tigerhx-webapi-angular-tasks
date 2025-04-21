@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "ySw+j19GpawgAeTM5GwrA8VycHzW0+L26i/PNIsOP44=",
+  "Source": "PrinterBackend",
+  "BasePath": "_content/PrinterBackend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

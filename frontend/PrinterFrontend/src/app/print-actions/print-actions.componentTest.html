@@ -1,0 +1,85 @@
+<div class="container mt-4">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">
+        <i class="bi bi-printer me-2"></i> Print Settings
+      </h4>
+    </div>
+
+    <div class="card-body">
+      <!-- Printer Selection -->
+      <div class="mb-3">
+        <label class="form-label">Printer:</label>
+        <select class="form-select" [(ngModel)]="selectedPrinterIp" (change)="checkPrinterStatus()">
+          <option value="">-- Choose Printer --</option>
+          <option *ngFor="let printer of printers" [value]="printer.ipAddress">
+            {{ printer.printerName }} ({{ printer.ipAddress }})
+          </option>
+        </select>
+        <small class="text-muted" [ngClass]="{
+          'text-success': printerStatus === 'online',
+          'text-danger': printerStatus === 'offline'
+        }">
+          Status: {{ printerStatus | uppercase }}
+        </small>
+      </div>
+
+      <!-- Invoice Form -->
+      <div class="mb-3">
+        <label class="form-label">Invoice Number:</label>
+        <input type="text" class="form-control" [(ngModel)]="invoiceData.invoiceNumber">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Date:</label>
+        <input type="date" class="form-control" [(ngModel)]="invoiceData.date">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Customer Name:</label>
+        <input type="text" class="form-control" [(ngModel)]="invoiceData.customerName">
+      </div>
+
+      <!-- Products List -->
+      <div class="mb-3">
+        <label class="form-label">Products:</label>
+        <div *ngFor="let product of invoiceData.products; let i = index" class="product-row row g-2">
+          <div class="col-md-5">
+            <input type="text" class="form-control" [(ngModel)]="product.name" placeholder="Product name">
+          </div>
+          <div class="col-md-2">
+            <input type="number" class="form-control" [(ngModel)]="product.quantity" min="1" (change)="calculateTotal()">
+          </div>
+          <div class="col-md-3">
+            <input type="number" class="form-control" [(ngModel)]="product.price" min="0" step="0.01" (change)="calculateTotal()">
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-danger w-100" (click)="removeProduct(i)" [disabled]="invoiceData.products.length <= 1">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+        <button class="btn btn-outline-primary mt-2" (click)="addProduct()">
+          <i class="bi bi-plus"></i> Add Product
+        </button>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Total Amount:</label>
+        <input type="text" class="form-control" [(ngModel)]="invoiceData.totalAmount" readonly>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button (click)="print()" class="btn btn-primary flex-grow-1"
+                [disabled]="!selectedPrinterIp || !invoiceData.invoiceNumber">
+          <i class="bi bi-send-check me-2"></i> Print Invoice
+        </button>
+
+        <button (click)="printTestPage()" class="btn btn-outline-primary"
+                [disabled]="!selectedPrinterIp">
+          <i class="bi bi-printer me-2"></i> Test Page
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+.dx-popup-footer {
+  display: flex !important;
+  justify-content: flex-end;
+  padding: 15px;
+  background: #f5f5f5;
+  border-top: 1px solid #ddd;
+}
+
+.dx-popup-content {
+  padding: 20px;
+}

@@ -1,0 +1,90 @@
+<div class="dx-card">
+  <div class="dx-card-header">
+    <h4><i class="dx-icon-print"></i> Print Settings</h4>
+  </div>
+
+  <div class="dx-card-content">
+    <!-- Printer Selection -->
+    <dx-select-box [dataSource]="printers"
+                   displayExpr="printerName"
+                   valueExpr="ipAddress"
+                   [(value)]="selectedPrinterIp"
+                   placeholder="Select Printer..."
+                   [searchEnabled]="true">
+    </dx-select-box>
+
+    <!-- Invoice Form -->
+    <dx-form [formData]="invoiceData"
+             [showColonAfterLabel]="true"
+             [showValidationSummary]="true">
+
+      <!-- Invoice Number -->
+      <dxi-item dataField="invoiceNumber"
+                editorType="dxTextBox"
+                [editorOptions]="{
+    validationRules: [{ type: 'required', message: 'Invoice Number is required' }]
+  }">
+        <dxo-label text="Invoice Number"></dxo-label>
+      </dxi-item>
+
+
+      <!-- Date -->
+      <dxi-item dataField="date" editorType="dxDateBox">
+        <dxo-label text="Date"></dxo-label>
+      </dxi-item>
+
+      <!-- Customer Name -->
+      <dxi-item dataField="customerName"
+                editorType="dxTextBox"
+                [editorOptions]="{ validationRules: [{ type: 'required', message: 'Required' }] }">
+        <dxo-label text="Customer Name"></dxo-label>
+      </dxi-item>
+
+
+      <!-- Products Grid -->
+      <dxi-item dataField="products"
+                editorType="dxDataGrid"
+                [editorOptions]="productsGridOptions">
+      </dxi-item>
+
+      <!-- Total Amount -->
+      <dxi-item dataField="totalAmount"
+                editorType="dxNumberBox"
+                [editorOptions]="{ readOnly: true, format: 'currency' }">
+        <dxo-label text="Total Amount"></dxo-label>
+      </dxi-item>
+
+      <!-- Notes -->
+      <dxi-item dataField="notes" editorType="dxTextArea">
+        <dxo-label text="Notes"></dxo-label>
+      </dxi-item>
+    </dx-form>
+
+    <!-- Action Buttons -->
+    <div class="dx-button-group">
+      <dx-button text="Print Invoice"
+                 icon="print"
+                 stylingMode="contained"
+                 type="default"
+                 (onClick)="print()"
+                 [disabled]="!validateForm() || isPrinting">
+      </dx-button>
+
+      <dx-button text="Test Page"
+                 icon="doc"
+                 stylingMode="outlined"
+                 type="normal"
+                 (onClick)="printHelloWorld()"
+                 [disabled]="!selectedPrinterIp || isPrinting">
+      </dx-button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<dx-toast [message]="toastMessage"
+          [type]="toastType"
+          [displayTime]="3000"
+          [(visible)]="toastVisible">
+</dx-toast>
+

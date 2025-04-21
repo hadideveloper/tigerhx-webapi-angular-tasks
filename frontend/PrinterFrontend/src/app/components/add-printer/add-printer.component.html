@@ -1,0 +1,44 @@
+<dx-popup title="Add New Printer"
+          [(visible)]="visible"
+          [width]="500"
+          [height]="'auto'"
+          [dragEnabled]="false"
+          [hideOnOutsideClick]="true"
+          (onHiding)="onCancel()">
+  <!-- Content -->
+  <div *dxTemplate="let data of 'content'">
+    <dx-form [formData]="addForm.value">
+      <dxi-item dataField="printerName"
+                editorType="dxTextBox"
+                [validationRules]="[{ type: 'required' }]">
+        <dxo-label text="Printer Name"></dxo-label>
+      </dxi-item>
+
+      <dxi-item dataField="ip"
+                editorType="dxTextBox"
+                [validationRules]="[
+                  { type: 'required' },
+                  { type: 'pattern', pattern: ipPattern }
+                ]">
+        <dxo-label text="IP Address"></dxo-label>
+      </dxi-item>
+    </dx-form>
+  </div>
+
+  <!-- footer  -->
+  <div *dxTemplate="let data of 'footer'">
+    <div style="display: flex; justify-content: flex-end; gap: 10px; padding: 15px;">
+      <dx-button text="Cancel"
+                 stylingMode="text"
+                 (onClick)="onCancel()"></dx-button>
+      <dx-button text="Save"
+                 stylingMode="contained"
+                 type="default"
+                 [disabled]="addForm.invalid || isSubmitting"
+                 (onClick)="onSubmit()"></dx-button>
+    </div>
+  </div>
+</dx-popup>
+
+
+

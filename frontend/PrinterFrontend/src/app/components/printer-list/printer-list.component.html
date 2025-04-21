@@ -1,0 +1,27 @@
+<!-- Printer List -->
+<dx-data-grid [dataSource]="printers"
+              keyExpr="id"
+              [showBorders]="true">
+  <dxi-column dataField="printerName" caption="Printer Name"></dxi-column>
+  <dxi-column dataField="ipAddress" caption="IP Address" [validationRules]="ipValidationRules"></dxi-column>
+  <dxi-column type="buttons" [width]="100">
+    <dxi-button icon="trash" hint="Delete" stylingMode="text" [onClick]="deletePrinter"></dxi-button>
+  </dxi-column>
+</dx-data-grid>
+
+<!-- Add Button -->
+<dx-button text="Add Printer"
+           type="success"
+           icon="plus"
+           (onClick)="openAddModal()">
+</dx-button>
+
+<!-- Window add -->
+<app-add-printer [(visible)]="visible"
+                 (printerAdded)="onPrinterAdded()"
+                 (cancel)="closeModal()">
+</app-add-printer>
+
+
+
+
